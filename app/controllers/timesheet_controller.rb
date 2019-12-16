@@ -55,7 +55,7 @@ class TimesheetController < ApplicationController
         params[:timesheet][:projects].include?(project.id.to_s)
       }
     else
-      @timesheet.projects = @timesheet.allowed_projects
+      @timesheet.projects = @timesheet.allowed_projects.find_all { |project| project.id > -1 }
     end
 
     call_hook(:plugin_timesheet_controller_report_pre_fetch_time_entries, { :timesheet => @timesheet, :params => params })
