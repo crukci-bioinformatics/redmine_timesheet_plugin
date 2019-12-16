@@ -85,6 +85,9 @@ class TimesheetController < ApplicationController
         end
       end
     end
+    if @timesheet.sort == :date
+      @timesheet.time_entries = @timesheet.time_entries.sort_by{|a| a[0]}
+    end
 
     @grand_total = @total.collect{|k,v| v}.inject{|sum,n| sum + n}
 
